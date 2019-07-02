@@ -17,6 +17,9 @@
 			animation: pop .8s cubic-bezier(0.165, 0.84, 0.44, 1) both;
 		}
 	}
+	&.drop {
+		animation: drop .8s both;
+	}
 }
 	.animator {
 		display: flex;
@@ -43,5 +46,14 @@
 		transform: scale(2);
 		opacity: 0;
 		filter: blur(10px);
+	}
+}
+
+@keyframes drop {
+	0% {
+		transform: translateY(0);
+	}
+	100% {
+		transform: translateY(100%);
 	}
 }

@@ -20,22 +20,24 @@ function Provider(props){
 	//HOOKS
 	//-----------------
 	const [ state, dispatch ] = useReducer(reducer, initialState);
-	useEffect(beginTick, [])
+	// useEffect(beginTick, [])
 
 	//EFFECT HANDLING
 	function beginTick(){
-		const tick = setInterval(() => {
-			dispatch({
-				type: ACTIONS.TICK
-			});
-		}, state.tickInterval);
-
-		return () => { clearInterval(tick) };
+		const tickInterval = setInterval(tick, state.tickInterval);
+		return () => { clearInterval(tickInterval) };
 	}//beginTick
+	function tick(){
+		dispatch({
+			type: ACTIONS.TICK
+		});
+	}//tick
 
 	//RENDER VARS
 	//-----------------
 	const { children } = props;
+
+	window.tick = tick;
 
 	return(
 		<Grid.Provider value={{ state, dispatch }}>

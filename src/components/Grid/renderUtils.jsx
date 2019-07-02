@@ -6,8 +6,9 @@ function renderCell(data, index){
 	const {
 		x, y,
 		color,
+		neighbours,
 		isEmpty,
-		neighbours
+		shouldDrop,
 	} = data;
 
 	return(
@@ -17,6 +18,7 @@ function renderCell(data, index){
 			color={color}
 			isEmpty={isEmpty}
 			neighbours={neighbours}
+			shouldDrop={shouldDrop}
 			key={`cell__${x}_${y}`}
 		/>
 	);

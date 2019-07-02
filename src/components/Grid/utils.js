@@ -63,6 +63,7 @@ function generateGrid(width, height, colors){
 				y: row,
 				color,
 				isEmpty: false,
+				shouldDrop: false,
 				neighbours: calculateNeighbours(column, row, width, height)
 			};
 
@@ -139,10 +140,23 @@ function emptyCells(grid, cells){
 }//emptyCells
 
 function applyGravity(grid){
+
+	console.log("tick!")
 	const newGrid = cloneGrid(grid);
 
-	const columns = newGrid.length;
-	const rows    = newGrid[0].length;
+	const rows    = newGrid.length;
+	const columns = newGrid[0].length;
+
+	for(let y = newGrid.length-1; y > 0; y--){
+		for(let x = newGrid[y].length-1; x > -1; x--){
+			const cell      = newGrid[y][x];
+			
+			if(cell.isEmpty){
+				const cellAbove      = newGrid[y-1][x];
+				cellAbove.shouldDrop = true;	
+			}
+		}
+	}
 
 	return newGrid;
 }//applyGravity
