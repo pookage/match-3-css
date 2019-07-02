@@ -49,7 +49,11 @@ export default function Cell(props){
 		<div
 			className={`${s.wrapper} ${isHighlighted ? s.highlighted : ""}`}
 			onMouseEnter={highlightNeighbours}>
-			{x},{y}
+			<div 
+				className={s.animator}
+				style={{ backgroundColor: color }}>
+				{x},{y}
+			</div>
 		</div>
 	);
 }//Cell

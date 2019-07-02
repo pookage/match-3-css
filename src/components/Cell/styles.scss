@@ -1,6 +1,17 @@
 .wrapper {
+	display: flex;
+	position: relative;
+	justify-content: center;
+	align-items: center;
 	&.highlighted {
-		background-color: red;
-		color: white;
+		background-color: #ddd;
 	}
 }
+	.animator {
+		display: flex;
+		height: 80%;
+		width: 80%;
+		border-radius: 10%;
+		justify-content: center;
+		align-items: center;
+	}

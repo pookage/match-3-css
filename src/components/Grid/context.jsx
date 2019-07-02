@@ -1,12 +1,14 @@
 import React, { createContext, useReducer } from "react";
-import { reducer, generateGrid } from "./utils.js";
+import { reducer, generateGrid, gener } from "./utils.js";
 
 const Grid         = createContext();
 const width        = 10;
 const height       = 10;
+const colors      = ["#4287f5", "#7fdb42", "#c22f60"];
+const grid         = generateGrid(width, height, colors);
 const initialState = {
 	width, height,
-	grid: generateGrid(width, height),
+	grid,
 	highlightedCells: [{ x: null, y: null }]
 };
 

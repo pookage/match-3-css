@@ -1,4 +1,5 @@
 import { ACTIONS } from "./";
+import { random } from "SHARED/utils.js";
 
 function reducer(state, action){
 
@@ -32,7 +33,7 @@ function reducer(state, action){
 	}
 }//reducer
 
-function generateGrid(width, height){
+function generateGrid(width, height, colors){
 
 	//create the the columns to describe x
 	const columns = new Array(width);
@@ -43,10 +44,12 @@ function generateGrid(width, height){
 		//populate every cell in the row with a clear data object
 		for(let row = 0; row < height; row++){
 			
+			const color = colors[random(0, 2)];
+
 			rows[row] = {
 				x: row, 
 				y: column,
-				color: null,
+				color,
 				neighbours: calculateNeighbours(row, column, width, height)
 			};
 
