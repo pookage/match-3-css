@@ -23,26 +23,35 @@ export default function Cell(props){
 
 	const {
 		grid,
-		highlightedCells
+		selection
 	} = state;
 
-	const isHighlighted = highlightedCells.filter(targetCell.bind(true, { x, y })).length > 0;
+	const isSelected = selection.filter(targetCell.bind(true, { x, y })).length > 0;
 
 	//EVENT HANDLING
 	//----------------------
-	function highlightMatchingNeighbours(){
+	function selectMatchingNeighbours(){
 		dispatch({
-			type: ACTIONS.HIGHLIGHT_MATCHING_NEIGHBOURS,
+			type: ACTIONS.SELECT_MATCHING_NEIGHBOURS,
 			value: {
-				x, y
+				cell: { x, y }
 			}
 		});
-	}//highlightMatchingNeighbours
+	}//selectMatchingNeighbours
+	function popHighlightedCells(){
+		dispatch({
+			type: ACTIONS.POP_SELECTION,
+			value: {
+				cells: selection
+			}
+		});
+	}//popHighlightedCells
 
 	return(
 		<div
-			className={`${s.wrapper} ${isHighlighted ? s.highlighted : ""}`}
-			onMouseEnter={highlightMatchingNeighbours}>
+			className={`${s.wrapper} ${isSelected ? s.highlighted : ""}`}
+			onMouseEnter={selectMatchingNeighbours}
+			onClick={popHighlightedCells}>
 			<div 
 				className={s.animator}
 				style={{ backgroundColor: color }}>

@@ -9,7 +9,7 @@ const grid         = generateGrid(width, height, colors);
 const initialState = {
 	width, height,
 	grid,
-	highlightedCells: [{ x: null, y: null }]
+	selection: [{ x: null, y: null }]
 };
 
 function Provider(props){

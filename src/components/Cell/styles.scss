@@ -3,6 +3,9 @@
 	position: relative;
 	justify-content: center;
 	align-items: center;
+	&:hover {
+		cursor: pointer;
+	}
 	&.highlighted {
 		background-color: #ddd;
 		.animator {

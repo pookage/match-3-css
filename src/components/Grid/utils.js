@@ -12,16 +12,17 @@ function reducer(state, action){
 		value = {} // (object) containing data associated with the action
 	} = action;
 
-	const { 
-		x, y
+	const {
+		cell, // (object){x, y} containg coords to the cells grid-reference
+		cells // (array) containing multiple cell coords
 	} = value;
 
 	switch(type){
-		case ACTIONS.HIGHLIGHT_MATCHING_NEIGHBOURS:
-			const matchingNeighbours = findMatchingNeighbours({ x, y }, grid, [{ x, y }]);
+		case ACTIONS.SELECT_MATCHING_NEIGHBOURS:
+			const matchingNeighbours = findMatchingNeighbours(cell, grid, [ cell ]);
 			return {
 				...state,
-				highlightedCells: matchingNeighbours
+				selection: matchingNeighbours
 			}
 		default:
 			return {
