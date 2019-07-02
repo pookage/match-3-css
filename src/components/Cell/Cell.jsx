@@ -56,7 +56,7 @@ export default function Cell(props){
 			<div 
 				className={s.animator}
 				style={{ backgroundColor: color }}>
-				{x},{y}
+				{y},{x}
 			</div>
 		</div>
 	);

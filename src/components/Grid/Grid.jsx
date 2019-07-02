@@ -14,8 +14,8 @@ function Grid(){
 	const { grid, width, height } = state;
 	const cells = grid.flat();
 	const layout = {
-		gridTemplateRows: `repeat(${width}, 1fr)`,
-		gridTemplateColumns: `repeat(${height}, 1fr)`
+		gridTemplateRows: `repeat(${height}, 1fr)`,
+		gridTemplateColumns: `repeat(${width}, 1fr)`
 	};
 
 	return(

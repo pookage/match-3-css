@@ -6,7 +6,7 @@ import { byCoords } from "./filters.js";
 function reducer(state, action){
 
 	const {
-		grid
+		grid, tick
 	} = state;
 
 	const { 
@@ -27,11 +27,19 @@ function reducer(state, action){
 				selection: matchingNeighbours
 			}
 		case ACTIONS.POP_SELECTION:
-			const updatedGrid = emptyCells(grid, cells);
+			const emptiedGrid = emptyCells(grid, cells);
 			return {
 				...state,
-				grid: updatedGrid
+				grid: emptiedGrid
 			}
+
+		case ACTIONS.TICK:
+			const gravityGrid = applyGravity(grid);
+			return {
+				...state,
+				grid: gravityGrid,
+				tick: tick + 1
+			};
 		default:
 			return {
 				...state
@@ -41,33 +49,31 @@ function reducer(state, action){
 
 function generateGrid(width, height, colors){
 
-	//create the the columns to describe x
-	const columns = new Array(width);
-	for(let column = 0; column < width; column++){
-		//for every column, add in all the rows
-		const rows = new Array(height);
-
-		//populate every cell in the row with a clear data object
-		for(let row = 0; row < height; row++){
-			
+	//create the the rows to describe x
+	const rows = new Array(height);
+	for(let row = 0; row < height; row++){
+		//for every row, add in all the rows
+		const columns = new Array(width);
+		//populate every cell in the column with a clear data object
+		for(let column = 0; column < width; column++){
 			const color = colors[random(0, 2)];
 
-			rows[row] = {
-				x: row, 
-				y: column,
+			columns[column] = {
+				x: column, 
+				y: row,
 				color,
 				isEmpty: false,
-				neighbours: calculateNeighbours(row, column, width, height)
+				neighbours: calculateNeighbours(column, row, width, height)
 			};
 
 		}
 
-		//add all of the rows to the current column
-		columns[column] = rows;
+		//add all of the columns to the current row
+		rows[row] = columns;
 	}
 
-	//spit out the columns, which contain rows, which contain cell-data
-	return columns;
+	//spit out the rows, which contain columns, which contain cell-data
+	return rows;
 }//generateGrid
 
 function calculateNeighbours(x, y, width, height){
@@ -130,8 +136,16 @@ function emptyCells(grid, cells){
 	}
 
 	return newGrid;
-
 }//emptyCells
+
+function applyGravity(grid){
+	const newGrid = cloneGrid(grid);
+
+	const columns = newGrid.length;
+	const rows    = newGrid[0].length;
+
+	return newGrid;
+}//applyGravity
 
 
 export {
