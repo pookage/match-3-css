@@ -22,6 +22,7 @@ export default function Cell(props){
 	} = props;
 
 	const {
+		grid,
 		highlightedCells
 	} = state;
 
@@ -29,26 +30,19 @@ export default function Cell(props){
 
 	//EVENT HANDLING
 	//----------------------
-	function highlightCell(){
+	function highlightMatchingNeighbours(){
 		dispatch({
-			type: ACTIONS.HIGHLIGHT_CELL,
-			value: { x, y }
-		});
-	}//highlightCell
-	function highlightNeighbours(){
-		// console.log(neighbours)
-		dispatch({
-			type: ACTIONS.HIGHLIGHT_NEIGHBOURS,
+			type: ACTIONS.HIGHLIGHT_MATCHING_NEIGHBOURS,
 			value: {
-				neighbours
+				x, y
 			}
 		});
-	}//highlightNeibours
+	}//highlightMatchingNeighbours
 
 	return(
 		<div
 			className={`${s.wrapper} ${isHighlighted ? s.highlighted : ""}`}
-			onMouseEnter={highlightNeighbours}>
+			onMouseEnter={highlightMatchingNeighbours}>
 			<div 
 				className={s.animator}
 				style={{ backgroundColor: color }}>
