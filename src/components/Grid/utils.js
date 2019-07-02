@@ -1,5 +1,5 @@
 import { ACTIONS } from "./";
-import { random } from "SHARED/utils.js";
+import { random, cloneGrid } from "SHARED/utils.js";
 import { byCoords } from "./filters.js";
 
 
@@ -28,6 +28,10 @@ function reducer(state, action){
 			}
 		case ACTIONS.POP_SELECTION:
 			const updatedGrid = emptyCells(grid, cells);
+			return {
+				...state,
+				grid: updatedGrid
+			}
 		default:
 			return {
 				...state
@@ -116,10 +120,16 @@ function findMatchingNeighbours(cell, grid, matchingNeighbours){
 
 function emptyCells(grid, cells){
 
+	//create a clone of the grid
+	const newGrid = cloneGrid(grid);
+
+	//mark the selected cells as empty
 	for(let cell of cells){
 		const { x, y } = cell;
-		grid[y][x].isEmpty = true;
+		newGrid[y][x].isEmpty = true;
 	}
+
+	return newGrid;
 
 }//emptyCells
 
