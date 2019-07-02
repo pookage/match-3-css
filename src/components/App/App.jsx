@@ -1,12 +1,14 @@
 import React from "react";
 import { Provider as AppProvider } from "./";
-import Test from "COMPONENTS/Test/";
+import Grid, { Provider as GridProvider } from "COMPONENTS/Grid/";
 import "SHARED/reset.scss";
 
 function App(){
 	return(
 		<AppProvider>
-			<Test />
+			<GridProvider>
+				<Grid />
+			</GridProvider>
 		</AppProvider>
 	);
 }//App
