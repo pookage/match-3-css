@@ -7,9 +7,14 @@
 		cursor: pointer;
 	}
 	&.highlighted {
-		background-color: #ddd;
 		.animator {
 			transform: scale(1.1);
+		}
+	}
+	&.popped {
+		.animator {
+			pointer-events: none;
+			animation: pop .8s cubic-bezier(0.165, 0.84, 0.44, 1) both;
 		}
 	}
 }
@@ -23,3 +28,20 @@
 		transform: scale(1);
 		transition: transform .3s;
 	}
+
+@keyframes pop {
+	0% {
+		transform: scale(1.1);
+		opacity: 1;
+	}
+	25% {
+		transform: scale(1);
+		opacity: 1;
+
+	}
+	100% {
+		transform: scale(2);
+		opacity: 0;
+		filter: blur(10px);
+	}
+}

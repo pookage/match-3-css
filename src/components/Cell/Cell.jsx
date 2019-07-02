@@ -18,6 +18,7 @@ export default function Cell(props){
 	const {
 		x, y,
 		color,
+		isEmpty,
 		neighbours
 	} = props;
 
@@ -49,7 +50,7 @@ export default function Cell(props){
 
 	return(
 		<div
-			className={`${s.wrapper} ${isSelected ? s.highlighted : ""}`}
+			className={`${s.wrapper} ${isEmpty ? s.popped : ""} ${isSelected ? s.highlighted : ""}`}
 			onMouseEnter={selectMatchingNeighbours}
 			onClick={popHighlightedCells}>
 			<div 

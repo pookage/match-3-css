@@ -1,5 +1,7 @@
 import { ACTIONS } from "./";
 import { random } from "SHARED/utils.js";
+import { byCoords } from "./filters.js";
+
 
 function reducer(state, action){
 
@@ -24,6 +26,8 @@ function reducer(state, action){
 				...state,
 				selection: matchingNeighbours
 			}
+		case ACTIONS.POP_SELECTION:
+			const updatedGrid = emptyCells(grid, cells);
 		default:
 			return {
 				...state
@@ -48,6 +52,7 @@ function generateGrid(width, height, colors){
 				x: row, 
 				y: column,
 				color,
+				isEmpty: false,
 				neighbours: calculateNeighbours(row, column, width, height)
 			};
 
@@ -97,7 +102,7 @@ function findMatchingNeighbours(cell, grid, matchingNeighbours){
 		//if the colour matches, then add the neighbour to the finished list
 		if(color == targetColor){
 			//if we don't already have the current cell stored...
-			if(!matchingNeighbours.find(currentCell.bind(true, neighbour))){
+			if(!matchingNeighbours.find(byCoords.bind(true, neighbour))){
 				//add the current neighbour...
 				matchingNeighbours = [ neighbour, ...matchingNeighbours ];
 				//..and investigate all of that neighbour's neighbours
@@ -109,13 +114,15 @@ function findMatchingNeighbours(cell, grid, matchingNeighbours){
 	return matchingNeighbours;
 }//findMatchingNeighbours
 
-function currentCell(targetCell, cell){
+function emptyCells(grid, cells){
 
-	const xMatch = cell.x == targetCell.x;
-	const yMatch = cell.y == targetCell.y;
+	for(let cell of cells){
+		const { x, y } = cell;
+		grid[y][x].isEmpty = true;
+	}
 
-	return xMatch && yMatch;
-}//currentCell
+}//emptyCells
+
 
 export {
 	reducer,

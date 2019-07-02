@@ -6,6 +6,7 @@ function renderCell(data, index){
 	const {
 		x, y,
 		color,
+		isEmpty,
 		neighbours
 	} = data;
 
@@ -14,6 +15,7 @@ function renderCell(data, index){
 			x={x}
 			y={y}
 			color={color}
+			isEmpty={isEmpty}
 			neighbours={neighbours}
 			key={`cell__${x}_${y}`}
 		/>
