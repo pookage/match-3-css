@@ -4,7 +4,12 @@
 	position: fixed;
 	top: 0;
 	left: 0;
-	pointer-events: none;
+	&.interactable {
+		pointer-events: all;
+	}
+	&.uninteractable {
+		pointer-events: none;
+	}
 }
 	.score {
 		min-width: calc(var(--size__font__heading) * 8);
@@ -42,14 +47,40 @@
 		width: 100%;
 		justify-content: center;
 		align-items: center;
+		flex-direction: column;
 		text-align: center;
-		pointer-events: none;
-		font-size: 10vh;
 		&.animation__0 {
 			animation: fadeInOut 1.6s both;
 		}
 		&.animation__1 {
 			animation: fadeOutIn 1.6s both;
+		}
+		&.gameOver {
+			animation: fadeIn 1s both;
+		}
+		.title {
+			font-size: 10vh;
+		}
+		.body {
+			font-size: var(--size__font__heading);
+		}
+		.replay {
+			padding: 0.62em 1em;
+			border: 0.1em solid #222;
+			border-radius: 0.5em;
+			margin-top: 1em;
+			appearance: none;
+			background-color: transparent;
+			transition: background-color .15s, color .15s;
+			&:hover
+			&:focus {
+				background-color: #222;
+				color: #fff;
+				cursor: pointer;
+			}
+			&:active {
+				outline: 0;
+			}
 		}
 	}
 
@@ -68,5 +99,14 @@
 	}
 	25%, 50% {
 		opacity:  1
+	}
+}
+
+@keyframes fadeIn {
+	from {
+		opacity: 0
+	}
+	to {
+		opacity: 1;
 	}
 }

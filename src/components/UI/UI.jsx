@@ -15,18 +15,29 @@ export default function UI(){
 	const { 
 		score,   // (number) total cummulative score so far
 		lastPop, // (number) the score you got in your last pop
-		message  // (string) a message that flashes up on high pops
+		message, // (string) a message that flashes up on high pops
+		gameOver // (boolean) whether or not the game is finished
 	} = state;
 
+	//EFFECT HANDLING
+	//------------------
 	function toggleMessageAnimation(){
 		const maxAnimations = 2;
 		const nextAnimation = animation + 1 == maxAnimations ? 0 : animation + 1;
 		setAnimation(nextAnimation);
 	}//toggleMessageAnimation
 
+
+	//EVENT HANDLING
+	//------------------
+	function replay(){
+		window.location.reload();
+	}//replay
+
+
 	return(
 		<header
-			className={s.wrapper}>
+			className={`${s.wrapper} ${gameOver ? s.interactable : s.uninteractable}`}>
 			<section className={s.score}>
 				<h1 className={s.title}>
 					Score
@@ -51,8 +62,22 @@ export default function UI(){
 				</dl>
 			</section>
 			<aside 
-				className={`${s.message} ${s[`animation__${animation}`]}`}>
-				{message}
+				className={`${s.message} ${!gameOver ? s[`animation__${animation}`] : s.gameOver}`}>
+				<h1 className={s.title}>
+					{message}
+				</h1>
+				{gameOver && [
+					<p  className={s.body}
+						key="ui__final_score">
+						Final score: {score}
+					</p>,
+					<button  
+						className={`${s.body} ${s.replay}`}
+						onClick={replay}
+						key="ui__play_again">
+						Play again?
+					</button>
+				]}
 			</aside>
 		</header>
 	);

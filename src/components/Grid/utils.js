@@ -9,7 +9,8 @@ function reducer(state, action){
 		grid, 
 		updates,
 		selection,
-		score
+		score,
+		remainingTiles
 	} = state;
 
 	const { 
@@ -33,13 +34,15 @@ function reducer(state, action){
 			const emptiedGrid = applyEmptyCells(grid, cells);
 			const poppedScore = calculateScore(selection);
 			const newScore    = score + poppedScore;
+			const tilesLeft   = remainingTiles - selection.length;
 			return {
 				...state,
 				grid: emptiedGrid,
 				selection: [],
 				interactable: false,
 				score: newScore,
-				lastPop: poppedScore
+				lastPop: poppedScore,
+				remainingTiles: tilesLeft
 			}
 
 		case ACTIONS.APPLY_GRAVITY:

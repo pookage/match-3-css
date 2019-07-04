@@ -18,7 +18,8 @@ const initialState = {
 	selection: [],
 	interactable: true,
 	score: 0,
-	lastPop: 0
+	lastPop: 0,
+	remainingTiles: width * height
 };
 
 function Provider(props){
@@ -32,8 +33,12 @@ function Provider(props){
 
 	//RENDER VARS
 	//-----------------
-	const { children }       = props;
-	const { score, lastPop } = state;
+	const { children } = props;
+	const { 
+		score, 
+		lastPop, 
+		remainingTiles 
+	} = state;
 
 
 	//EFFECT HANDLING
@@ -43,7 +48,8 @@ function Provider(props){
 			type: APP_ACTIONS.UPDATE_SCORE,
 			value: {
 				score,
-				lastPop
+				lastPop,
+				remainingTiles
 			}
 		});
 	}//publishScore

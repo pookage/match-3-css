@@ -6,6 +6,7 @@ const initialState = {
 	score: 0,
 	lastPop: 0,
 	message: "",
+	gameOver: false,
 	debug: "This is the initial state"
 };
 
