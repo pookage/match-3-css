@@ -18,6 +18,11 @@ function buildConfig(env, args){
 		//...for production...
 		case "production":
 			additionalOptions = {
+				output: {
+					filename: "bundle.js",
+					path: dist,
+					publicPath: "./"
+				},
 				plugins: [
 					new HtmlWebpackPlugin({
 						template: `${src}/index.html`,
@@ -35,6 +40,11 @@ function buildConfig(env, args){
 		case "development":
 		default:
 			additionalOptions = {
+				output: {
+					filename: "bundle.js",
+					path: dist,
+					publicPath: "/"
+				},
 				mode: "development",
 				devtool: 'inline-source-map',
 				plugins: [
@@ -62,11 +72,7 @@ function buildConfig(env, args){
 			"@babel/polyfill", 
 			`${src}/index.js`
 		],
-		output: {
-			filename: "bundle.js",
-			path: dist,
-			publicPath: "/"
-		},
+		
 		module: {
 			rules: [
 				{
