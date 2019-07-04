@@ -10,6 +10,7 @@ const grid         = generateGrid(width, height, colors);
 const initialState = {
 	width, height,
 	grid,
+	updates: [],
 	selection: [{ x: null, y: null }],
 	tick: 0,
 	tickInterval: 1000

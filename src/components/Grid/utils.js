@@ -34,9 +34,11 @@ function reducer(state, action){
 			}
 
 		case ACTIONS.TICK:
-			const gravityGrid = applyGravity(grid);
+			const [ gravityGrid, updates ] = applyGravity(grid);
+			console.log(updates)
 			return {
 				...state,
+				updates,
 				grid: gravityGrid,
 				tick: tick + 1
 			};
@@ -56,6 +58,7 @@ function generateGrid(width, height, colors){
 		const columns = new Array(width);
 		//populate every cell in the column with a clear data object
 		for(let column = 0; column < width; column++){
+			
 			const color = colors[random(0, colors.length-1)];
 
 			columns[column] = {
@@ -142,36 +145,51 @@ function emptyCells(grid, cells){
 function applyGravity(grid){
 
 	console.log("tick!")
-	const newGrid = cloneGrid(grid);
 
+	const newGrid = cloneGrid(grid);
 	const rows    = newGrid.length;
 	const columns = newGrid[0].length;
+	const chains  = []; //storage for every cell-chain that needs to update later
 
 	//go along each column
 	for(let x = 0; x < columns; x++){
 
+		let y            = rows-1; //start at the bottom
+		let dropDistance = 0;      // the amount of cells needed to dropBy
 
-		let dropCount = 0;
-		//start at the bottom
-		let y = rows-1;
-		console.log({y})
+		//template for the chain update
+		let chain = {
+			column: x,
+			start: undefined,
+			cells: []
+		};
+
 		//keep going up the rows
 		while(y > -1){
-
-			// console.log("going up a row!")
 			const cell = newGrid[y][x];
 
 			//if the cell is empty, make the amount the next block drops larger
-			if(cell.isEmpty)       dropCount++;
-			else if(dropCount > 0) newGrid[y][x].drop = dropCount;
+			if(cell.isEmpty) {
+				//if this is the first empty cell, start a new chain here
+				if(!dropDistance) chain.start = y;
+				//another empty cell means further to drop
+				dropDistance++;
+			} else if(dropDistance > 0){
+				//as long as there's distance to drop, let the cell know
+				cell.drop = dropDistance;
+				//add this non-empty cell to the update chain
+				chain.cells.push(cell);
+			}
 
 			//go up one row
 			y--;
 		}
 
+		//if there's been any state changes in this column, store to update late
+		if(chain.cells.length > 0) chains.push(chain);
 	}
 
-	return newGrid;
+	return [ newGrid, chains ];
 }//applyGravity
 
 
