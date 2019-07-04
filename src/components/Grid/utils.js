@@ -7,8 +7,7 @@ function reducer(state, action){
 
 	const {
 		grid, 
-		updates, 
-		tick
+		updates
 	} = state;
 
 	const { 
@@ -32,25 +31,25 @@ function reducer(state, action){
 			const emptiedGrid = applyEmptyCells(grid, cells);
 			return {
 				...state,
-				grid: emptiedGrid
+				grid: emptiedGrid,
+				selection: []
 			}
 
-		case ACTIONS.TICK:
+		case ACTIONS.APPLY_GRAVITY:
 			const [ gravityGrid, newUpdates ] = applyGravity(grid);
-			console.log({ updates });
 			return {
 				...state,
 				updates: newUpdates,
-				grid: gravityGrid,
-				tick: tick + 1
+				grid: gravityGrid
 			};
 
 		case ACTIONS.APPLY_UPDATES:
 			const updatedGrid = applyUpdates(grid, updates);
 			return {
 				...state,
-				grid: updatedGrid,
+				grid: updatedGrid
 			};
+			
 		default:
 			return {
 				...state
@@ -153,8 +152,6 @@ function applyEmptyCells(grid, cells){
 
 function applyGravity(grid){
 
-	console.log("tick!")
-
 	const newGrid = cloneGrid(grid);
 	const rows    = newGrid.length;
 	const columns = newGrid[0].length;
@@ -203,12 +200,9 @@ function applyGravity(grid){
 
 function applyUpdates(grid, updates){
 
-	console.log("apply updates", updates);
-
 	const newGrid = cloneGrid(grid);
 
 	for(let chain of updates){
-		console.log("we got an update!")
 
 		const { 
 			column, 

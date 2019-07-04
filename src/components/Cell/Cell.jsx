@@ -48,18 +48,24 @@ export default function Cell(props){
 				cells: selection
 			}
 		});
+		//slight delay before causing blocks to drop
+		setTimeout(() => {
+			dispatch({
+				type: ACTIONS.APPLY_GRAVITY
+			});
+		}, 100);
 	}//popHighlightedCells
 
 	return(
-		<div
+		<button
 			className={`${s.wrapper} ${isEmpty ? s.popped : ""} ${isSelected ? s.highlighted : ""} ${drop ? s.dropped : ""}`}
 			onMouseEnter={selectMatchingNeighbours}
 			onClick={popHighlightedCells}
 			style={dropTranslation}>
-			<div 
+			<span 
 				className={s.animator}
 				style={{ backgroundColor: color }} 
 			/>
-		</div>
+		</button>
 	);
 }//Cell

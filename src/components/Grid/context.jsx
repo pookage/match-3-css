@@ -1,5 +1,5 @@
-import React, { createContext, useReducer, useEffect } from "react";
-import { reducer, generateGrid, gener } from "./utils.js";
+import React, { createContext, useReducer } from "react";
+import { reducer, generateGrid } from "./utils.js";
 import { ACTIONS } from "./";
 
 const Grid         = createContext();
@@ -11,9 +11,7 @@ const initialState = {
 	width, height,
 	grid,
 	updates: [],
-	selection: [{ x: null, y: null }],
-	tick: 0,
-	tickInterval: 1000
+	selection: []
 };
 
 function Provider(props){
@@ -21,28 +19,14 @@ function Provider(props){
 	//HOOKS
 	//-----------------
 	const [ state, dispatch ] = useReducer(reducer, initialState);
-	// useEffect(beginTick, [])
-
-	//EFFECT HANDLING
-	//-----------------
-	function beginTick(){
-		const tickInterval = setInterval(tick, state.tickInterval);
-		return () => { clearInterval(tickInterval) };
-	}//beginTick
-	function tick(){
-		dispatch({
-			type: ACTIONS.TICK
-		});
-	}//tick
 
 	//RENDER VARS
 	//-----------------
 	const { children } = props;
 
-	window.tick = tick;
-
 	return(
-		<Grid.Provider value={{ state, dispatch }}>
+		<Grid.Provider 
+			value={{ state, dispatch }}>
 			{children}
 		</Grid.Provider>
 	);

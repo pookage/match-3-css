@@ -23,7 +23,7 @@ function Grid(){
 
 	//EVENT HANDLING
 	//-----------------
-	function checkForBounceCompletion(event){
+	function debounceAnimationCallbacks(event){
 
 		const {
 			animationName
@@ -37,7 +37,7 @@ function Grid(){
 				break;
 		}
 		event.persist();
-	}//checkForBounceCompletion
+	}//debounceAnimationCallbacks
 	function signalBounceEnd(){
 		dispatch({
 			type: ACTIONS.APPLY_UPDATES
@@ -48,7 +48,7 @@ function Grid(){
 		<div 
 			className={s.wrapper}
 			style={ layout }
-			onAnimationEnd={checkForBounceCompletion}>
+			onAnimationEnd={debounceAnimationCallbacks}>
 			{ cells.map(renderCell) }
 		</div>
 	);
