@@ -6,7 +6,9 @@ import { byCoords } from "./filters.js";
 function reducer(state, action){
 
 	const {
-		grid, tick
+		grid, 
+		updates, 
+		tick
 	} = state;
 
 	const { 
@@ -27,20 +29,27 @@ function reducer(state, action){
 				selection: matchingNeighbours
 			}
 		case ACTIONS.POP_SELECTION:
-			const emptiedGrid = emptyCells(grid, cells);
+			const emptiedGrid = applyEmptyCells(grid, cells);
 			return {
 				...state,
 				grid: emptiedGrid
 			}
 
 		case ACTIONS.TICK:
-			const [ gravityGrid, updates ] = applyGravity(grid);
-			console.log(updates)
+			const [ gravityGrid, newUpdates ] = applyGravity(grid);
+			console.log({ updates });
 			return {
 				...state,
-				updates,
+				updates: newUpdates,
 				grid: gravityGrid,
 				tick: tick + 1
+			};
+
+		case ACTIONS.APPLY_UPDATES:
+			const updatedGrid = applyUpdates(grid, updates);
+			return {
+				...state,
+				grid: updatedGrid,
 			};
 		default:
 			return {
@@ -128,7 +137,7 @@ function findMatchingNeighbours(cell, grid, matchingNeighbours){
 	return matchingNeighbours;
 }//findMatchingNeighbours
 
-function emptyCells(grid, cells){
+function applyEmptyCells(grid, cells){
 
 	//create a clone of the grid
 	const newGrid = cloneGrid(grid);
@@ -140,7 +149,7 @@ function emptyCells(grid, cells){
 	}
 
 	return newGrid;
-}//emptyCells
+}//applyEmptyCells
 
 function applyGravity(grid){
 
@@ -191,6 +200,47 @@ function applyGravity(grid){
 
 	return [ newGrid, chains ];
 }//applyGravity
+
+function applyUpdates(grid, updates){
+
+	console.log("apply updates", updates);
+
+	const newGrid = cloneGrid(grid);
+
+	for(let chain of updates){
+		console.log("we got an update!")
+
+		const { 
+			column, 
+			start, 
+			cells 
+		} = chain;
+
+		let y = start;
+		while(y > -1){
+
+			//target the cell to apply updates to
+			const cell   = newGrid[y][column];
+
+			// grab the colour from the update chain;
+			// default to empty when nothing left
+			const {
+				color   = "transparent",
+				isEmpty = true
+			} = cells.shift() || {};
+
+			//apply updates
+			cell.color   = color;   // apply colour
+			cell.drop    = 0;       // remove all drop animations
+			cell.isEmpty = isEmpty; // remove empty flags while there's colour
+
+			//go up in the column
+			y--;
+		}
+	}
+
+	return newGrid;
+}//applyUpdates
 
 
 export {

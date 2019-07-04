@@ -1,5 +1,8 @@
 import React, { useContext } from "react";
-import { Grid as GridContext } from "./";
+import {
+	ACTIONS, 
+	Grid as GridContext 
+} from "./";
 import { renderCell } from "./renderUtils.jsx";
 import s from "./styles.scss";
 
@@ -18,10 +21,34 @@ function Grid(){
 		gridTemplateColumns: `repeat(${width}, 1fr)`
 	};
 
+	//EVENT HANDLING
+	//-----------------
+	function checkForBounceCompletion(event){
+
+		const {
+			animationName
+		} = event;
+
+		switch(animationName.toLowerCase()){
+			case "cell__bounce":
+				//signal that all bouncing has finished once the last has fired
+				clearTimeout(window.cellBounceTimeout);
+				window.cellBounceTimeout = setTimeout(signalBounceEnd, 50);
+				break;
+		}
+		event.persist();
+	}//checkForBounceCompletion
+	function signalBounceEnd(){
+		dispatch({
+			type: ACTIONS.APPLY_UPDATES
+		});
+	}//signalBounceEnd
+
 	return(
 		<div 
 			className={s.wrapper}
-			style={ layout }>
+			style={ layout }
+			onAnimationEnd={checkForBounceCompletion}>
 			{ cells.map(renderCell) }
 		</div>
 	);

@@ -24,6 +24,7 @@ function Provider(props){
 	// useEffect(beginTick, [])
 
 	//EFFECT HANDLING
+	//-----------------
 	function beginTick(){
 		const tickInterval = setInterval(tick, state.tickInterval);
 		return () => { clearInterval(tickInterval) };
