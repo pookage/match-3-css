@@ -76,3 +76,9 @@
 		transform: translateY(-10%);
 	}
 }
+
+@media(max-aspect-ratio: 1/1){
+	.wrapper {
+		padding: 0.1em;
+	}
+}

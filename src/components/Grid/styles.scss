@@ -4,3 +4,10 @@
 	height: 75vh;
 	margin: 0 auto;
 }
+
+@media(max-aspect-ratio: 1/1){
+	.wrapper {
+		width: 75vw;
+		height: 75vw;
+	}
+}
