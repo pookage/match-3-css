@@ -56,14 +56,14 @@ function generateGrid(width, height, colors){
 		const columns = new Array(width);
 		//populate every cell in the column with a clear data object
 		for(let column = 0; column < width; column++){
-			const color = colors[random(0, 2)];
+			const color = colors[random(0, colors.length-1)];
 
 			columns[column] = {
 				x: column, 
 				y: row,
 				color,
 				isEmpty: false,
-				shouldDrop: false,
+				drop: 0,
 				neighbours: calculateNeighbours(column, row, width, height)
 			};
 
@@ -147,15 +147,28 @@ function applyGravity(grid){
 	const rows    = newGrid.length;
 	const columns = newGrid[0].length;
 
-	for(let y = newGrid.length-1; y > 0; y--){
-		for(let x = newGrid[y].length-1; x > -1; x--){
-			const cell      = newGrid[y][x];
-			
-			if(cell.isEmpty){
-				const cellAbove      = newGrid[y-1][x];
-				cellAbove.shouldDrop = true;	
-			}
+	//go along each column
+	for(let x = 0; x < columns; x++){
+
+
+		let dropCount = 0;
+		//start at the bottom
+		let y = rows-1;
+		console.log({y})
+		//keep going up the rows
+		while(y > -1){
+
+			// console.log("going up a row!")
+			const cell = newGrid[y][x];
+
+			//if the cell is empty, make the amount the next block drops larger
+			if(cell.isEmpty)       dropCount++;
+			else if(dropCount > 0) newGrid[y][x].drop = dropCount;
+
+			//go up one row
+			y--;
 		}
+
 	}
 
 	return newGrid;

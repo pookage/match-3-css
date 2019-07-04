@@ -20,7 +20,7 @@ export default function Cell(props){
 		color,
 		neighbours,
 		isEmpty,
-		shouldDrop,
+		drop,
 	} = props;
 
 	const {
@@ -28,7 +28,8 @@ export default function Cell(props){
 		selection
 	} = state;
 
-	const isSelected = selection.filter(targetCell.bind(true, { x, y })).length > 0;
+	const isSelected      = selection.filter(targetCell.bind(true, { x, y })).length > 0;
+	const dropTranslation = { transform: `translateY(${drop * 100}%)` };
 
 	//EVENT HANDLING
 	//----------------------
@@ -51,9 +52,10 @@ export default function Cell(props){
 
 	return(
 		<div
-			className={`${s.wrapper} ${isEmpty ? s.popped : ""} ${isSelected ? s.highlighted : ""} ${shouldDrop ? s.drop : ""}`}
+			className={`${s.wrapper} ${isEmpty ? s.popped : ""} ${isSelected ? s.highlighted : ""} ${drop ? s.dropped : ""}`}
 			onMouseEnter={selectMatchingNeighbours}
-			onClick={popHighlightedCells}>
+			onClick={popHighlightedCells}
+			style={dropTranslation}>
 			<div 
 				className={s.animator}
 				style={{ backgroundColor: color }}>

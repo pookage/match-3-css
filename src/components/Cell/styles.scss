@@ -3,6 +3,9 @@
 	position: relative;
 	justify-content: center;
 	align-items: center;
+	transform: translateY(0%);
+	transition: transform var(--timing__cell_drop) var(--easing__ease_in_quint);
+	--timing__cell_drop: .6s;
 	&:hover {
 		cursor: pointer;
 	}
@@ -14,18 +17,20 @@
 	&.popped {
 		.animator {
 			pointer-events: none;
-			animation: pop .8s cubic-bezier(0.165, 0.84, 0.44, 1) both;
+			animation: pop .8s var(--easing__ease_out_quart) both;
 		}
 	}
-	&.drop {
-		animation: drop .8s both;
+	&.dropped {
+		.animator {
+			animation: bounce .3s var(--timing__cell_drop) both var(--easing__ease_out_back);	
+		}
 	}
 }
 	.animator {
 		display: flex;
 		height: 80%;
 		width: 80%;
-		border-radius: 10%;
+		border-radius: 1rem;
 		justify-content: center;
 		align-items: center;
 		transform: scale(1);
@@ -49,11 +54,11 @@
 	}
 }
 
-@keyframes drop {
-	0% {
-		transform: translateY(0);
+@keyframes bounce {
+	0%, 100% {
+		transform: translateY(0%);
 	}
-	100% {
-		transform: translateY(100%);
+	33% {
+		transform: translateY(-10%);
 	}
 }
