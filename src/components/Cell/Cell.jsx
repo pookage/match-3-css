@@ -58,9 +58,8 @@ export default function Cell(props){
 			style={dropTranslation}>
 			<div 
 				className={s.animator}
-				style={{ backgroundColor: color }}>
-				{y},{x}
-			</div>
+				style={{ backgroundColor: color }} 
+			/>
 		</div>
 	);
 }//Cell

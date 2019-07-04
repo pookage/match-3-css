@@ -4,7 +4,6 @@
 	justify-content: center;
 	align-items: center;
 	transform: translateY(0%);
-	transition: transform var(--timing__cell_drop) var(--easing__ease_in_quint);
 	--timing__cell_drop: .6s;
 	&:hover {
 		cursor: pointer;
@@ -21,6 +20,7 @@
 		}
 	}
 	&.dropped {
+		transition: transform var(--timing__cell_drop) var(--easing__ease_in_quint);
 		.animator {
 			animation: bounce .3s var(--timing__cell_drop) both var(--easing__ease_out_back);	
 		}
