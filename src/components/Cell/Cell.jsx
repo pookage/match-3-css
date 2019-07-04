@@ -43,18 +43,20 @@ export default function Cell(props){
 		});
 	}//selectMatchingNeighbours
 	function popHighlightedCells(){
-		dispatch({
-			type: ACTIONS.POP_SELECTION,
-			value: {
-				cells: selection
-			}
-		});
-		//slight delay before causing blocks to drop
-		setTimeout(() => {
+		if(selection.length > 0){
 			dispatch({
-				type: ACTIONS.APPLY_GRAVITY
+				type: ACTIONS.POP_SELECTION,
+				value: {
+					cells: selection
+				}
 			});
-		}, 100);
+			//slight delay before causing blocks to drop
+			setTimeout(() => {
+				dispatch({
+					type: ACTIONS.APPLY_GRAVITY
+				});
+			}, 100);
+		}
 	}//popHighlightedCells
 
 	return(

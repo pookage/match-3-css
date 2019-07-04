@@ -18,8 +18,6 @@ export default function UI(){
 		message  // (string) a message that flashes up on high pops
 	} = state;
 
-	console.log({ animation, message });
-
 	function toggleMessageAnimation(){
 		const maxAnimations = 2;
 		const nextAnimation = animation + 1 == maxAnimations ? 0 : animation + 1;

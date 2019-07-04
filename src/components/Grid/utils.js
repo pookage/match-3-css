@@ -44,10 +44,12 @@ function reducer(state, action){
 
 		case ACTIONS.APPLY_GRAVITY:
 			const [ gravityGrid, newUpdates ] = applyGravity(grid);
+			const fallingBlocks = newUpdates.length > 0;
 			return {
 				...state,
 				updates: newUpdates,
-				grid: gravityGrid
+				grid: gravityGrid,
+				interactable: !fallingBlocks
 			};
 
 		case ACTIONS.APPLY_UPDATES:

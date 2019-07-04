@@ -10,7 +10,7 @@
 	transform: translateY(0%);
 	background-color: transparent;
 	--timing__cell_drop: .6s;
-	transition: opacity .3s;
+	transition: opacity .6s;
 	&:hover {
 		cursor: pointer;
 	}
@@ -19,7 +19,7 @@
 	}
 	&:disabled:not(.dropped){
 		opacity: 0.5;
-		transition: opacity .3s;
+		
 	}
 	&.highlighted {
 		.animator {

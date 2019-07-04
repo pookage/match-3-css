@@ -1,0 +1,13 @@
+html {
+	font-size: 16px;
+}
+body {
+	font-family: "Barriecito";
+	font-size: var(--size__font__body);
+	color: #222;
+}
+:root {
+	--size__font__heading: 2.62rem;
+	--size__font__subheading: 1.62rem;
+	--size__font__body: 1rem;
+}
