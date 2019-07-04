@@ -9,7 +9,7 @@ import { reducer, generateGrid } from "./utils.js";
 const Grid         = createContext();
 const width        = 10;
 const height       = 10;
-const colors      = ["#2442d6", "#7fdb42", "#bc2bd6", "#ffb326", "#c72020", "#10e3df"];
+const colors       = ["#2442d6", "#7fdb42", "#bc2bd6", "#ffb326", "#c72020", "#10e3df"];
 const grid         = generateGrid(width, height, colors);
 const initialState = {
 	width, height,
