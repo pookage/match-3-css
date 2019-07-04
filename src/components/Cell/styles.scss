@@ -10,11 +10,16 @@
 	transform: translateY(0%);
 	background-color: transparent;
 	--timing__cell_drop: .6s;
+	transition: opacity .3s;
 	&:hover {
 		cursor: pointer;
 	}
 	&:active, &:focus {
 		outline: 0;
+	}
+	&:disabled:not(.dropped){
+		opacity: 0.5;
+		transition: opacity .3s;
 	}
 	&.highlighted {
 		.animator {

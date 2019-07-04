@@ -7,7 +7,9 @@ function reducer(state, action){
 
 	const {
 		grid, 
-		updates
+		updates,
+		selection,
+		score
 	} = state;
 
 	const { 
@@ -29,10 +31,15 @@ function reducer(state, action){
 			}
 		case ACTIONS.POP_SELECTION:
 			const emptiedGrid = applyEmptyCells(grid, cells);
+			const poppedScore = calculateScore(selection);
+			const newScore    = score + poppedScore;
 			return {
 				...state,
 				grid: emptiedGrid,
-				selection: []
+				selection: [],
+				interactable: false,
+				score: newScore,
+				lastPop: poppedScore
 			}
 
 		case ACTIONS.APPLY_GRAVITY:
@@ -47,9 +54,10 @@ function reducer(state, action){
 			const updatedGrid = applyUpdates(grid, updates);
 			return {
 				...state,
-				grid: updatedGrid
+				grid: updatedGrid,
+				interactable: true
 			};
-			
+
 		default:
 			return {
 				...state
@@ -235,6 +243,14 @@ function applyUpdates(grid, updates){
 
 	return newGrid;
 }//applyUpdates
+
+function calculateScore(popped){
+
+	const tilesPopped = popped.length;
+	const score       = tilesPopped * tilesPopped;
+
+	return score;
+}//calculateScore
 
 
 export {

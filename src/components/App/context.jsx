@@ -3,6 +3,9 @@ import { reducer } from "./utils.js";
 
 const App          = createContext();
 const initialState = {
+	score: 0,
+	lastPop: 0,
+	message: "",
 	debug: "This is the initial state"
 };
 

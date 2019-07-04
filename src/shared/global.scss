@@ -2,3 +2,10 @@ html, body, :global(#pook-app) {
 	height: 100%;
 	overflow: hidden;
 }
+
+:global(#pook-app){
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	flex-direction: column;
+}

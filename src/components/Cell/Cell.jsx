@@ -25,7 +25,8 @@ export default function Cell(props){
 
 	const {
 		grid,
-		selection
+		selection,
+		interactable
 	} = state;
 
 	const isSelected      = selection.filter(targetCell.bind(true, { x, y })).length > 0;
@@ -59,9 +60,10 @@ export default function Cell(props){
 	return(
 		<button
 			className={`${s.wrapper} ${isEmpty ? s.popped : ""} ${isSelected ? s.highlighted : ""} ${drop ? s.dropped : ""}`}
-			onMouseEnter={selectMatchingNeighbours}
-			onClick={popHighlightedCells}
-			style={dropTranslation}>
+			onMouseEnter={interactable ? selectMatchingNeighbours : null}
+			onClick={interactable ? popHighlightedCells : null}
+			style={dropTranslation}
+			disabled={!interactable}>
 			<span 
 				className={s.animator}
 				style={{ backgroundColor: color }} 
