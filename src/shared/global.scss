@@ -9,3 +9,10 @@ html, body, :global(#pook-app) {
 	align-items: center;
 	flex-direction: column;
 }
+
+@media(max-width: 768px){
+	:global(#pook-app){
+		justify-content: flex-end;
+		padding-bottom: 15vw;
+	}
+}
