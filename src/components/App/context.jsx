@@ -1,10 +1,11 @@
 import React, { createContext, useReducer } from "react";
-import { reducer } from "./utils.js";
+import { reducer, loadPersonalBest, savePersonalBest } from "./utils.js";
 
 const App          = createContext();
 const initialState = {
 	score: 0,
 	lastPop: 0,
+	bestScore: loadPersonalBest(),
 	message: "",
 	gameOver: false,
 	debug: "This is the initial state"
@@ -19,6 +20,7 @@ function Provider(props){
 	//RENDER VARS
 	//-----------------
 	const { children } = props;
+	const { bestScore } = state;
 
 	return(
 		<App.Provider value={{ state, dispatch }}>

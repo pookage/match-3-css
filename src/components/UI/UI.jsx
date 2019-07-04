@@ -12,11 +12,12 @@ export default function UI(){
 
 	//RENDER VARS
 	//------------------
-	const { 
-		score,   // (number) total cummulative score so far
-		lastPop, // (number) the score you got in your last pop
-		message, // (string) a message that flashes up on high pops
-		gameOver // (boolean) whether or not the game is finished
+	const {
+		bestScore, // (number) historical high score
+		score,     // (number) total cummulative score so far
+		lastPop,   // (number) the score you got in your last pop
+		message,   // (string) a message that flashes up on high pops
+		gameOver   // (boolean) whether or not the game is finished
 	} = state;
 
 	//EFFECT HANDLING
@@ -34,7 +35,6 @@ export default function UI(){
 		window.location.reload();
 	}//replay
 
-
 	return(
 		<header
 			className={`${s.wrapper} ${gameOver ? s.interactable : s.uninteractable}`}>
@@ -43,6 +43,14 @@ export default function UI(){
 					Score
 				</h1>
 				<dl className={s.scorables}>
+					<div className={s.attribute}>
+						<dt className={s.key}>
+							Personal Best
+						</dt>
+						<dd className={s.value}>
+							{bestScore}
+						</dd>
+					</div>
 					<div className={s.attribute}>
 						<dt className={s.key}>
 							Current Score

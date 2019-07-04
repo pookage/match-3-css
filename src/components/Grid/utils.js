@@ -2,7 +2,6 @@ import { ACTIONS } from "./";
 import { random, cloneGrid } from "SHARED/utils.js";
 import { byCoords } from "./filters.js";
 
-
 function reducer(state, action){
 
 	const {
