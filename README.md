@@ -2,6 +2,8 @@
 
 Roll-up, folks, for that classic bit of mindless addition - a match-3 game! Points scale exponentially with your chain-size, so be sure to fit as many colours side-by-side as possible!
 
+Play it [here](https://pookage.github.io/match-3-css/dist/)
+
 ![match-3-demo](https://user-images.githubusercontent.com/3370135/60680845-d5b82e80-9e84-11e9-9f78-f83d4db8a0f4.gif)
 
 
